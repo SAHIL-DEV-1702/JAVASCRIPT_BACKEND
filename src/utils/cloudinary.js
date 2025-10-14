@@ -22,8 +22,11 @@ const uploadOnCloudinary = async (localFilePath) => {
 
         // successfully uploaded
 
-        // console.log("upload successfully", response.url)
-        fs.unlinkSync(localFilePath)
+        console.log("upload successfully", response.url)
+
+        if (response.url) {
+            fs.unlinkSync(localFilePath) // remove the locally saved temp file after upload
+        }
 
         return response
 
@@ -38,4 +41,3 @@ const uploadOnCloudinary = async (localFilePath) => {
 }
 
 export { uploadOnCloudinary }
-

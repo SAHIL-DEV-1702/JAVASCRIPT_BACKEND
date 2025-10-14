@@ -23,8 +23,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
-        lowercase: true,
-        trim: true,
+
     },
     fullname: {
         type: String,
@@ -63,9 +62,10 @@ userSchema.pre("save", async function (next) {
     next()
 
 })
-
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.password)
+
+    const resp = await bcrypt.compare(password, this.password)
+    return resp
 }
 
 userSchema.methods.generateAccessToken = async function () {
@@ -97,7 +97,7 @@ userSchema.methods.generateRefreshToken = async function () {
             username: this.username,
             fullname: this.fullname
         },
-        process.env.REFRESH_TOKEN_EXPIRY,
+        process.env.REFRESH_TOKEN_SECRET,
         {
             expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
