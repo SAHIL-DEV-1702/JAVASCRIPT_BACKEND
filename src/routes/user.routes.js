@@ -65,6 +65,6 @@ router.route('/channel/:username').get(verifyJWT, getUserChannelProfile)
 
 //GET WAtch HISTORY
 
-router.route("/history").get(verifyJWT, getWatchHistory)
+router.route("/watchhistory").get(verifyJWT, getWatchHistory)
 
 export default router
